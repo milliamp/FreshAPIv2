@@ -1,0 +1,11 @@
+{
+    "BaseURLs": {
+        "Live": "https://<instance name>.freshservice.com/api/v2",
+        "Sandbox": "https://<instance name>-fs-sandbox.freshservice.com/api/v2"        
+    },
+    "APIKeys": {
+        "Live": "<Live API Key>",
+        "Sandbox": "<Sandbox API Key>"        
+    },
+    "DefaultEnvironment": "Live"
+}

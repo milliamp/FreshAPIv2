@@ -2611,7 +2611,7 @@ function New-FreshTicketNote {
         }
 
         try {
-            Invoke-FreshAPIPost -path "tickets/$TicketID/reply" -field 'conversation' -body $PostBody -ContentType $ContentType -System $System -Verbose:$verbosity | Select-Object *,@{name='conversation_id';exp={$_.id}},@{name='system';exp={$System}}
+            Invoke-FreshAPIPost -path "tickets/$TicketID/notes" -field 'conversation' -body $PostBody -ContentType $ContentType -System $System -Verbose:$verbosity | Select-Object *,@{name='conversation_id';exp={$_.id}},@{name='system';exp={$System}}
         } catch {
             $_ | Convert-FreshError
         }

@@ -12,10 +12,7 @@ function Get-FreshAsset {
         Returns all fresh assets
     .EXAMPLE
         Get-FreshAsset -AssetId 42
-        Returns the details for asset #42
-    .EXAMPLE
-        Get-FreshAsset -PreDefinedFilter deleted
-        Returns all deleted assets
+        Returns the details for asset with a display ID of 42
     .EXAMPLE
         Get-FreshAsset -UserId 4 -AssetState InUse  
         Returns all assets assigned to user 4 that are in use
@@ -172,6 +169,64 @@ function Get-FreshAsset {
 
         try {
             Invoke-FreshAPIGet -path $path -field $field -system $System -verbose:$verbosity | Select-Object *,@{name='asset_id';exp={$_.display_id}},@{name='system';exp={$System}}
+        } catch {
+            $_ | Convert-FreshError
+        }
+    }
+}
+
+function Get-FreshAssetType {
+    <#
+    .SYNOPSIS
+        Retrieves asset type(s) from Fresh
+    .DESCRIPTION
+        Retrieves asset types from Fresh, by ID or all.
+    .EXAMPLE
+        Get-FreshAssetType
+        Returns all fresh asset types
+    .EXAMPLE
+        Get-FreshAssetType -AssetTypeId 42
+        Returns the details for asset type with an ID of 42
+    .EXAMPLE
+        Get-FreshAssetType
+        Returns all asset types in the system
+    .OUTPUTS
+        Object[]
+    #>
+    [cmdletBinding(DefaultParameterSetName='asset_types')]
+    param(
+        # Finds a single Fresh Asset Type by (numeric) ID
+        [parameter(Mandatory=$true,
+            ParameterSetName='asset_type',
+            ValueFromPipelineByPropertyName=$true)]
+        [Alias('asset_type_id')]
+        [int64]$AssetTypeId,
+
+        # Which Fresh system/environment to query
+        [parameter(ValueFromPipelineByPropertyName=$true)]
+        [ValidateSet('Live','Sandbox')]
+        [string]$System = $DefaultFreshEnvironment
+    )
+    begin {
+        $verbosity = $VerbosePreference -ne 'SilentlyContinue' # this enmsure the -Verbose setting is passed through to subsequent functions
+    }
+
+    process {
+        $path = "asset_types"
+        $field = $PSCmdlet.ParameterSetName
+        write-verbose "ParameterSetName: $field"
+
+        switch($field)
+        {
+            'asset_type' {
+                $path += "/$AssetTypeId"
+            }
+        }
+
+        write-verbose "Path: $path"
+
+        try {
+            Invoke-FreshAPIGet -path $path -field $field -system $System -verbose:$verbosity | Select-Object *,@{name='asset_type_id';exp={$_.id}},@{name='system';exp={$System}}
         } catch {
             $_ | Convert-FreshError
         }

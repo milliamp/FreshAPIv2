@@ -132,6 +132,11 @@ Here is a list of the functions available for use. Other functions are exported,
 * Update-FreshTicketTimeEntry
 * Remove-FreshTicketTimeEntry
 
+### Asset related functions
+
+* Get-FreshAsset
+* Get-FreshAssetType
+
 ### Fresh Custom Object related functions
 
 * Get-FreshCustomObject

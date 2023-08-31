@@ -23,6 +23,7 @@ To make the modules more manageable, the functions have been broken down into ne
 * **FreshAPI.ServiceCatalog.psm1** - this contains functions relating to the Service Catalog and its categories.
 * **FreshAPI.Locations.psm1** - this contains functions relating to Locations in Fresh.
 * **FreshAPI.Departments.psm1** - this contains functions relating to departments in Fresh
+* **FreshAPI.Assets.psm1** - this contains functions relating to Assets and Asset Types.
 * **FreshAPI.CustomObjects.psm1** - this contains functions relating to Fresh custom objects and their records
 
 Further supporting modules will be added in due time to cover off the other API areas, as per [Fresh's API documentation](https://api.freshservice.com/)

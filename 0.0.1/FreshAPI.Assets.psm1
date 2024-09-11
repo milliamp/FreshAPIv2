@@ -146,7 +146,7 @@ function Get-FreshAsset {
             $StateArray = @()
             foreach ($s in $AssetState)
             {
-                $StateArray += "asset_state:$s)"
+                $StateArray += "asset_state:'$s'"
             }
             $Queries += "(" + ($StateArray -join ' OR ') + ")"
         }    
